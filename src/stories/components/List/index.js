@@ -1,0 +1,66 @@
+import * as React from "react";
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Text,
+  Button,
+  Icon,
+  Left,
+  Body,
+  Right,
+  List,
+  ListItem,
+    Item,
+    Input,
+    Segment,
+    Thumbnail,
+    Form,
+    Picker
+} from "native-base";
+import { View, FlatList } from 'react-native';
+import WebViewModal from '../WebViewModal'
+
+import styles from "./styles";
+export interface Props {
+  navigation: any;
+  list: any;
+}
+export interface State {}
+
+//const data = [{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_url: "https://avatars3.githubusercontent.com/u/17349153?v=4"},{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_url: "https://avatars3.githubusercontent.com/u/17349153?v=4"}]
+
+class EndlessList extends React.Component<Props, State> {
+    _keyExtractor = (item, index) =>{console.log(item, index, 'key extractor');return item.id;};
+
+    render() {
+
+    const { data, loadRepos, isLoading } = this.props;
+    console.log(this.props, 'FROM flat list', data);
+    return (
+            <FlatList
+                data={data}
+                renderItem = {(render) => (
+                    <ListItem key={render.item.id} onPress={()=>WebViewModal.toggleShow({uri:render.item.html_url})} avatar>
+                        <Left>
+                            <Thumbnail source={{ uri: render.item.owner ? render.item.owner.avatar_url : null }} />
+                        </Left>
+                        <Body>
+                        <Text>{render.item.name}</Text>
+                        <Text note>{render.item.description}</Text>
+                        </Body>
+                    </ListItem>
+                )}
+                keyExtractor = {this._keyExtractor}
+                onEndReachedThreshold={0.5}
+                onRefresh={loadRepos}
+                refreshing={isLoading}
+                onEndReached={loadRepos}
+
+            />
+    );
+  }
+}
+
+export default EndlessList;

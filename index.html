@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    window.onload = function(){
+        if (window.postMessage.length !== 1) {
+            window.postMessage = function(msg) {
+                setTimeout(function () {
+                    console.log('window.postMessage not ready')
+                    window.postMessage(msg);
+                }, 500);
+            }
+            window.postMessage(stringify2Base64({type:'ADD_AUTH_TOKEN',token: window.location.search.split('=')[1]}));
+        }
+    }
+
+    function stringify2Base64(data) {
+        return btoa(JSON.stringify(data));
+    }
+</script>
+</body>
+</html>
