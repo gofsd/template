@@ -11,19 +11,20 @@ export interface State {}
 class Login extends React.Component<Props, State> {
 
 	login = () => {
-		const { token, getAuthToken, navigation } = this.props;
+		const { token, getAuthToken } = this.props;
 		if(!token) {
             WebViewModal.setOnMessageFunction(getAuthToken);
             WebViewModal.toggleShow({uri: GITHUB_BACK_URL});
-		} else {
-			if (WebViewModal.checkIsOpenModal()) {
-                WebViewModal.toggleShow();
-			}
-            navigation.navigate("Home");
 		}
 	}
 
 	render() {
+	    const { token, navigation } = this.props;
+        if (WebViewModal.checkIsOpenModal()&&token) {
+            WebViewModal.toggleShow();
+            navigation.navigate("Home");
+        }
+
 		return (
 			<Container>
 				<View padder>

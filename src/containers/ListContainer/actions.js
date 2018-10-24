@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import _ from 'lodash'
 import GITHUB_REPOS_PER_PAGE from '../../config/constants';
 
 export function listIsRefreshing(bool: boolean) {
@@ -24,13 +24,13 @@ export function clearList() {
 
 export const refreshNewRepos = () => async (dispatch, getState) => {
     const params = getState().searchReposReducer;
+    dispatch(clearList());
     dispatch(listIsRefreshing(true));
     const list = (await axios({
         method:'get',
         url:`https://api.github.com/search/repositories?q=${params.query}&order=${params.order}&sort=${params.sort}&page=${1}&per_page=${GITHUB_REPOS_PER_PAGE}`,
     })).data;
-    console.log(list);
-    dispatch(clearList())
+
     dispatch(fetchListSuccess(list.items));
 
     dispatch(listIsRefreshing(false));
@@ -53,7 +53,8 @@ export const loadRepos = (params) => async (dispatch, getState) => {
         method:'get',
         url:`https://api.github.com/search/repositories?q=${params.query}&order=${params.order}&sort=${params.sort}&page=${page}&per_page=${GITHUB_REPOS_PER_PAGE}`,
     })).data;
-
-    dispatch(fetchListSuccess(list.items));
+    //const uniqItems = _.uniqBy(list.items, 'id');
+    console.log(uniqItems);
+    dispatch(fetchListSuccess(uniqItems));
     dispatch(listIsLoading(false));
 }

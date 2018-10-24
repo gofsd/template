@@ -32,7 +32,7 @@ export interface State {}
 //const data = [{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_url: "https://avatars3.githubusercontent.com/u/17349153?v=4"},{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_url: "https://avatars3.githubusercontent.com/u/17349153?v=4"}]
 
 class EndlessList extends React.Component<Props, State> {
-    _keyExtractor = (item, index) =>{console.log(item, index, 'key extractor');return item.id;};
+    _keyExtractor = (item, index) => item.id
 
     render() {
 
@@ -56,7 +56,7 @@ class EndlessList extends React.Component<Props, State> {
                     <ActivityIndicator animating={isLoading}  />
                 )}
                 keyExtractor = {this._keyExtractor}
-                onEndReachedThreshold={0.5}
+                onEndReachedThreshold={0.6}
                 onRefresh={refreshRepos}
                 refreshing={isRefreshing}
                 onEndReached={loadRep}
