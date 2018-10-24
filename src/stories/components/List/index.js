@@ -19,7 +19,7 @@ import {
     Form,
     Picker
 } from "native-base";
-import { View, FlatList } from 'react-native';
+import { View, FlatList, ActivityIndicator } from 'react-native';
 import WebViewModal from '../WebViewModal'
 
 import styles from "./styles";
@@ -36,7 +36,7 @@ class EndlessList extends React.Component<Props, State> {
 
     render() {
 
-    const { data, loadRepos, isLoading } = this.props;
+    const { data, loadRep, isLoading, refreshRepos, isRefreshing } = this.props;
     console.log(this.props, 'FROM flat list', data);
     return (
             <FlatList
@@ -52,11 +52,14 @@ class EndlessList extends React.Component<Props, State> {
                         </Body>
                     </ListItem>
                 )}
+                ListFooterComponent={() => (
+                    <ActivityIndicator animating={isLoading}  />
+                )}
                 keyExtractor = {this._keyExtractor}
                 onEndReachedThreshold={0.5}
-                onRefresh={loadRepos}
-                refreshing={isLoading}
-                onEndReached={loadRepos}
+                onRefresh={refreshRepos}
+                refreshing={isRefreshing}
+                onEndReached={loadRep}
 
             />
     );

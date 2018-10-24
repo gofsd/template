@@ -6,12 +6,6 @@ export function getAuthToken(token: string) {
 		token
 	};
 }
-export function checkAuth(data: Object) {
-	return {
-		type: "CHECK_AUTHORIZATION_DATA",
-        userData: data
-	};
-}
 
 
 export const checkAuth = (params) => async (dispatch, getState) => {

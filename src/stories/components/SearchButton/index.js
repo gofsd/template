@@ -33,12 +33,12 @@ const data = [{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_u
 
 class SearchButton extends React.Component<Props, State> {
   render() {
-    const { searchRepos } = this.props;
+    const { refreshRepos } = this.props;
     console.log(this.props, 'some debug text');
     return (
         <Footer>
           <FooterTab>
-              <Button onPress={searchRepos}>
+              <Button onPress={refreshRepos}>
                   <Text>Search</Text>
               </Button>
            </FooterTab>

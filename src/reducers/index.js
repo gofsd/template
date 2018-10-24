@@ -8,5 +8,5 @@ import authReducer from '../containers/LoginContainer/reducer';
 export default combineReducers({
 	listReducer,
 	searchReposReducer,
-    authReducer
+    authReducer,
 });

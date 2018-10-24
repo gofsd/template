@@ -1,10 +1,14 @@
 // @flow
 import { connect } from "react-redux";
-import { searchNewRepos } from "./actions";
+import { refreshNewRepos } from "../ListContainer/actions";
 import SearchButton from '../../stories/components/SearchButton';
 
 const mapDispatchToProps = (dispatch) => ({
-    searchRepos: () => dispatch(searchNewRepos())
+    refreshRepos: () => dispatch(refreshNewRepos()),
 });
 
-export default connect(null, mapDispatchToProps)(SearchButton);
+const mapStateToProps = (state) => ({
+    isRefreshing: state.listReducer.isRefreshing
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchButton);
