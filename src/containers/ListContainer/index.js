@@ -23,6 +23,7 @@ const mapStateToProps = state => ({
     data: state.listReducer.list,
 	isLoading: state.listReducer.isLoading,
     isRefreshing: state.listReducer.isRefreshing,
+	isConnected: state.rootReducer.isConnected
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FlatList);

@@ -17,9 +17,10 @@ import {
     Segment,
     Thumbnail,
     Form,
-    Picker
+    Picker,
+    View
 } from "native-base";
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { FlatList, ActivityIndicator } from 'react-native';
 import WebViewModal from '../WebViewModal'
 
 import styles from "./styles";
@@ -32,13 +33,11 @@ export interface State {}
 //const data = [{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_url: "https://avatars3.githubusercontent.com/u/17349153?v=4"},{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_url: "https://avatars3.githubusercontent.com/u/17349153?v=4"}]
 
 class EndlessList extends React.Component<Props, State> {
-    _keyExtractor = (item, index) => item.id
+    _keyExtractor = (item, index) => item.id;
 
-    render() {
-
-    const { data, loadRep, isLoading, refreshRepos, isRefreshing } = this.props;
-    console.log(this.props, 'FROM flat list', data);
-    return (
+    renderList = () => {
+        const { data, loadRep, isLoading, refreshRepos, isRefreshing } = this.props;
+        return (
             <FlatList
                 data={data}
                 renderItem = {(render) => (
@@ -62,8 +61,22 @@ class EndlessList extends React.Component<Props, State> {
                 onEndReached={loadRep}
 
             />
-    );
-  }
+        );
+    }
+
+    renderCennectStatus = () => {
+        const { isConnected } = this.props;
+      return (
+          <View><Text>{isConnected ? 'Online' : 'Offline'}</Text></View>
+      )
+    }
+
+
+    render() {
+        const { data } = this.props;
+        return !data.length ? this.renderCennectStatus() : this.renderList();
+
+    }
 }
 
 export default EndlessList;
