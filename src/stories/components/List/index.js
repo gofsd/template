@@ -48,7 +48,7 @@ class EndlessList extends React.Component<Props, State> {
                         </Left>
                         <Body>
                         <Text>{render.item.name}</Text>
-                        <Text note>{render.item.description}</Text>
+                        <Text note>{render.item.description && render.item.description.substr(0, 29)}</Text>
                         </Body>
                     </ListItem>
                 )}

@@ -53,7 +53,7 @@ export const loadRepos = (params) => async (dispatch, getState) => {
         method:'get',
         url:`https://api.github.com/search/repositories?q=${params.query}&order=${params.order}&sort=${params.sort}&page=${page}&per_page=${GITHUB_REPOS_PER_PAGE}`,
     })).data;
-    //const uniqItems = _.uniqBy(list.items, 'id');
+    const uniqItems = _.uniqBy(list.items, 'id');
     console.log(uniqItems);
     dispatch(fetchListSuccess(uniqItems));
     dispatch(listIsLoading(false));
