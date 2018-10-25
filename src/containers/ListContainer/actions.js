@@ -24,13 +24,19 @@ export function clearList() {
 
 export const refreshNewRepos = () => async (dispatch, getState) => {
     const params = getState().searchReposReducer;
-    dispatch(clearList());
+    let list;
     dispatch(listIsRefreshing(true));
-    const list = (await axios({
-        method:'get',
-        url:`https://api.github.com/search/repositories?q=${params.query}&order=${params.order}&sort=${params.sort}&page=${1}&per_page=${GITHUB_REPOS_PER_PAGE}`,
-    })).data;
+    try {
+        list = (await axios({
+            method:'get',
+            url:`https://api.github.com/search/repositories?q=${params.query}&order=${params.order}&sort=${params.sort}&page=${1}&per_page=${GITHUB_REPOS_PER_PAGE}`,
+        })).data;
+    } catch (e) {
+        dispatch(fetchListSuccess([]));
+        return;
+    }
 
+    dispatch(clearList());
     dispatch(fetchListSuccess(list.items));
 
     dispatch(listIsRefreshing(false));
@@ -43,18 +49,20 @@ export function listIsLoading(bool: boolean) {
 	};
 }
 
-
-
 export const loadRepos = (params) => async (dispatch, getState) => {
 	const { page } = getState().listReducer;
+	let list;
 	const params = getState().searchReposReducer;
 	dispatch(listIsLoading(true));
-	const list = (await axios({
+	try {
+        list = (await axios({
         method:'get',
         url:`https://api.github.com/search/repositories?q=${params.query}&order=${params.order}&sort=${params.sort}&page=${page}&per_page=${GITHUB_REPOS_PER_PAGE}`,
-    })).data;
-    const uniqItems = _.uniqBy(list.items, 'id');
-    console.log(uniqItems);
-    dispatch(fetchListSuccess(uniqItems));
+        })).data;
+    } catch(error) {
+	    dispatch(fetchListSuccess([]));
+	    return;
+    }
+    dispatch(fetchListSuccess(list.items));
     dispatch(listIsLoading(false));
 }
