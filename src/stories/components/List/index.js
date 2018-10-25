@@ -30,7 +30,6 @@ export interface Props {
 }
 export interface State {}
 
-//const data = [{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_url: "https://avatars3.githubusercontent.com/u/17349153?v=4"},{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_url: "https://avatars3.githubusercontent.com/u/17349153?v=4"}]
 
 class EndlessList extends React.Component<Props, State> {
     _keyExtractor = (item, index) => item.id;
@@ -52,7 +51,7 @@ class EndlessList extends React.Component<Props, State> {
                     </ListItem>
                 )}
                 ListFooterComponent={() => (
-                    <ActivityIndicator animating={isLoading}  />
+                    <ActivityIndicator animating={isLoading || !data.length}  />
                 )}
                 keyExtractor = {this._keyExtractor}
                 onEndReachedThreshold={0.6}

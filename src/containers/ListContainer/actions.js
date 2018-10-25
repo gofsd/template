@@ -1,6 +1,5 @@
-import axios from 'axios';
-import _ from 'lodash'
-import GITHUB_REPOS_PER_PAGE from '../../config/constants';
+import axios from "axios";
+import GITHUB_REPOS_PER_PAGE from "../../config/constants";
 
 export function listIsRefreshing(bool: boolean) {
     return {
@@ -11,6 +10,11 @@ export function listIsRefreshing(bool: boolean) {
 export function fetchListSuccess(list: Object) {
     return {
         type: "FETCH_LIST_SUCCESS",
+        list,
+    };
+}export function refreshListSuccess(list: Object) {
+    return {
+        type: "REFRESH_LIST_SUCCESS",
         list,
     };
 }
@@ -32,8 +36,8 @@ export const refreshNewRepos = () => async (dispatch, getState) => {
             url:`https://api.github.com/search/repositories?q=${params.query}&order=${params.order}&sort=${params.sort}&page=${1}&per_page=${GITHUB_REPOS_PER_PAGE}`,
         })).data;
     } catch (e) {
-        dispatch(fetchListSuccess([]));
         dispatch(clearList());
+        dispatch(refreshListSuccess([]));
         dispatch(listIsRefreshing(false));
         return;
     }
@@ -58,12 +62,13 @@ export const loadRepos = (params) => async (dispatch, getState) => {
 	dispatch(listIsLoading(true));
 	try {
         list = (await axios({
-        method:'get',
+        method:"get",
         url:`https://api.github.com/search/repositories?q=${params.query}&order=${params.order}&sort=${params.sort}&page=${page}&per_page=${GITHUB_REPOS_PER_PAGE}`,
         })).data;
-    } catch(error) {
-	    dispatch(fetchListSuccess([]));
-	    return;
+    } catch (error) {
+        dispatch(fetchListSuccess([]));
+        dispatch(listIsLoading(false));
+        return;
     }
     dispatch(fetchListSuccess(list.items));
     dispatch(listIsLoading(false));

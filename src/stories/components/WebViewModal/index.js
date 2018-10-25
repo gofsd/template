@@ -1,6 +1,7 @@
 import * as React from "react";
 import { WebView, View, Button } from 'react-native';
-import { Base64 } from 'js-base64';
+import { Base64 } from "js-base64";
+import styles from "./styles"
 
 let mountedInstance;
 const params = {
@@ -40,7 +41,6 @@ class WebViewModal extends React.Component<Props, State> {
         if (params.onMessFn) {
             params.onMessFn(this.base64ToObject(nativeEvent.data));
         }
-        console.log('from webview', nativeEvent.data);
     }
 
 
@@ -50,15 +50,15 @@ class WebViewModal extends React.Component<Props, State> {
 
         console.log("Hello from render", showModal);
         return (
-            <View style={showModal ? {flex:1, justifyContent:'center', alignItems: 'center', position:'absolute',top:0, left:0,bottom:0, right:0, backgroundColor: 'black'} : {height:0, opacity: 0}}>
-                <View style={{width:'90%', height:'90%', backgroundColor: 'white' }}>
+            <View style={showModal ? styles.showModal : styles.hideModal }>
+                <View style={styles.webViewContainer}>
                     <WebView
-                        source={{uri:uri ? uri :'https://github.com/login/oauth/authorize?client_id=5c61c03eef77a46db102&redirect_uri=https://dimon41k.github.io/genesis-test.github.io'}}
+                        source={{uri:uri ? uri : url }}
                         ref={webview => { WebViewModal.webview = webview; }}
                         onMessage={this.onMessage}
                     />
                 </View>
-                <Button style={{width:'100'}} title={"CLOSE"} onPress={() => WebViewModal.toggleShow()}/>
+                <Button title={"CLOSE"} onPress={() => WebViewModal.toggleShow()}/>
             </View>
         );
     }
