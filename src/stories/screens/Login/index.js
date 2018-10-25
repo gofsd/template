@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Container, Button, Text, View} from "native-base";
-import WebViewModal from '../../components/WebViewModal';
-import { GITHUB_BACK_URL } from '../../../config/constants';
+import WebViewModal from "../../components/WebViewModal";
+import { GITHUB_BACK_URL } from "../../../config/constants";
 export interface Props {
 	token: string,
     getAuthToken: Function,

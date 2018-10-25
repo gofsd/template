@@ -28,12 +28,10 @@ export interface Props {
 }
 export interface State {}
 
-const data = [{name: 'Dima Pohiba', description: 'Hello motherfuckers', avatar_url: "https://avatars3.githubusercontent.com/u/17349153?v=4"}]
 
 class SearchForm extends React.Component<Props, State> {
   render() {
     const { sortValues, query, sort, setParams } = this.props;
-    console.log(this.props, 'some debug text');
     return (
           <Header searchBar rounded hasSegment>
               <Item>

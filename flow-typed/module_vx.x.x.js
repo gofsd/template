@@ -37,3 +37,9 @@ declare module "redux-persist" {
 declare module "react-test-renderer" {
 	declare module.exports: any;
 }
+declare module "redux-devtools-extension" {
+  declare module.exports: any;
+}
+declare module "redux-persist/lib/storage" {
+  declare module.exports: any;
+}

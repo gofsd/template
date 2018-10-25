@@ -67,14 +67,14 @@ class EndlessList extends React.Component<Props, State> {
     renderCennectStatus = () => {
       const { isConnected } = this.props;
       return (
-          <View style={{flex:1, alignItems: 'center', justifyContent:'center'}}><Text>{isConnected ? 'Online' : 'Offline'}</Text></View>
+          <View style={{flex:1, alignItems: "center", justifyContent:"center"}}><Text>{isConnected ? "Online" : "Offline"}</Text></View>
       )
     }
 
 
     render() {
-        const { data } = this.props;
-        return !data.length ? this.renderCennectStatus() : this.renderList();
+        const { data, isRefreshing } = this.props;
+        return !data.length && !isRefreshing ? this.renderCennectStatus() : this.renderList();
     }
 }
 

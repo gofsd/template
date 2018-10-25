@@ -16,7 +16,6 @@ import {
     Segment,
     Thumbnail,
 } from "native-base";
-import SearchForm from '../../components/SearchForm'
 import styles from "./styles";
 export interface Props {
   navigation: any;
