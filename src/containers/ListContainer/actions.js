@@ -33,6 +33,8 @@ export const refreshNewRepos = () => async (dispatch, getState) => {
         })).data;
     } catch (e) {
         dispatch(fetchListSuccess([]));
+        dispatch(clearList());
+        dispatch(listIsRefreshing(false));
         return;
     }
 
