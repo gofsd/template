@@ -10,7 +10,11 @@ const params = {
     onMessFn: null
 };
 
+
 class WebViewModal extends React.Component<Props, State> {
+    state = {
+        loaded: false
+    }
 
     componentDidMount() {
         mountedInstance = this;
@@ -43,7 +47,7 @@ class WebViewModal extends React.Component<Props, State> {
         }
     }
 
-
+    handleLoadEnd = () => this.setState((prev) => {loaded: !prev.loaded});
     render() {
         const { showModal, uri } = params;
         const { url } = this.props;
@@ -58,6 +62,8 @@ class WebViewModal extends React.Component<Props, State> {
                         onMessage={this.onMessage}
                         javaScriptEnabled
                         onError={(e) => console.warn(e)}
+                        onLoadEnd={this.handleLoadEnd}
+
                     />
                 </View>
                 <Button title={"CLOSE"} onPress={() => WebViewModal.toggleShow()}/>
