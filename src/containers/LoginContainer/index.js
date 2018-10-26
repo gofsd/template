@@ -4,7 +4,6 @@ import { Item, Input, Icon, Toast, Form } from "native-base";
 import { Field, reduxForm } from "redux-form";
 import Login from "../../stories/screens/Login";
 import {connect} from "react-redux";
-import FlatList from "../../stories/components/List";
 
 export interface Props {
   navigation: any;
@@ -12,12 +11,18 @@ export interface Props {
 export interface State {}
 
 
-const mapDispatchToProps = (dispatch) => ({
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  const { dispatch } = dispatchProps;
+  const { navigation } = ownProps;
+  return {
+    ...stateProps,
     getAuthToken: (action) => dispatch(action),
-})
+    login: () => navigation.navigate("Home")
+  }
+}
 
 const mapStateToProps = state => ({
     token: state.authReducer.token
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, null, mergeProps )(Login);

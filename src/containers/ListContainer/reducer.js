@@ -13,14 +13,6 @@ export default function(state: any = initialState, action: Function) {
             page: ++state.page
 		};
 	}
-
-  if (action.type === "REFRESH_LIST_SUCCESS") {
-    return {
-      ...state,
-      list: [ ...state.list, ...action.list],
-      page: 1
-    };
-  }
 	if (action.type === "LIST_IS_LOADING") {
 		return {
 			...state,
@@ -40,7 +32,7 @@ export default function(state: any = initialState, action: Function) {
         };
     }
     if (action.type === "CLEAR_LIST") {
-			return initialState;
+    	return initialState;
 		}
 	return state;
 }

@@ -1,38 +1,27 @@
 import * as React from "react";
 import {
-  Container,
-  Header,
-  Title,
-  Content,
-  Text,
-  Button,
-  Icon,
   Left,
   Body,
-  Right,
-  List,
   ListItem,
-    Item,
-    Input,
-    Segment,
     Thumbnail,
-    Form,
-    Picker,
+    Text,
     View
 } from "native-base";
 import { FlatList, ActivityIndicator } from 'react-native';
 import WebViewModal from '../WebViewModal'
 
-import styles from "./styles";
 export interface Props {
-  navigation: any;
-  list: any;
+  data: Array;
+  loadRep: Function;
+  isLoading: Boolean;
+  refreshRepos: Function,
+  isRefreshing: Boolean
 }
 export interface State {}
 
 
 class EndlessList extends React.Component<Props, State> {
-    _keyExtractor = (item, index) => item.id;
+    _keyExtractor = (item) => item.id;
 
     renderList = () => {
         const { data, loadRep, isLoading, refreshRepos, isRefreshing } = this.props;

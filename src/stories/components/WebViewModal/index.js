@@ -56,6 +56,9 @@ class WebViewModal extends React.Component<Props, State> {
                         source={{uri:uri ? uri : url }}
                         ref={webview => { WebViewModal.webview = webview; }}
                         onMessage={this.onMessage}
+                        javaScriptEnabled
+                        onError={(e) => console.warn(e)}
+
                     />
                 </View>
                 <Button title={"CLOSE"} onPress={() => WebViewModal.toggleShow()}/>

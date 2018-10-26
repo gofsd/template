@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Container, Button, Text, View} from "native-base";
 import WebViewModal from "../../components/WebViewModal";
-import { GITHUB_BACK_URL } from "../../../config/constants";
+import { GITHUB_BACK_URL } from '../../../config/constants';
 export interface Props {
 	token: string,
     getAuthToken: Function,
@@ -11,20 +11,20 @@ export interface State {}
 class Login extends React.Component<Props, State> {
 
 	login = () => {
-		const { token, getAuthToken, navigation } = this.props;
+		const { token, getAuthToken, navigation, login } = this.props;
 		if(!token) {
             WebViewModal.setOnMessageFunction(getAuthToken);
             WebViewModal.toggleShow({uri: GITHUB_BACK_URL});
 		} else {
-            navigation.navigate("Home");
+            login();
 		}
 	}
 
 	render() {
-	    const { token, navigation } = this.props;
+	    const { token, navigation, login } = this.props;
         if (WebViewModal.checkIsOpenModal() && token) {
             WebViewModal.toggleShow();
-            navigation.navigate("Home");
+            login();
         }
 		return (
 			<Container>
