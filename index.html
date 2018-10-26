@@ -6,19 +6,20 @@
 </head>
 <body>
 <script>
-    onLoad = function () {
+    window.onload = function(){
+        if (window.postMessage.length !== 1) {
             window.postMessage = function(msg) {
+                setTimeout(function () {
+                    console.log('window.postMessage not ready')
                     window.postMessage(msg);
+                }, 500);
             }
             window.postMessage(stringify2Base64({type:'ADD_AUTH_TOKEN',token: window.location.search.split('=')[1]}));
+        }
     }
-    document.addEventListener('message', function(e) {console.log(e)});
-
-
     function stringify2Base64(data) {
         return btoa(JSON.stringify(data));
     }
-    window.onload = onLoad;
 </script>
 </body>
 </html>
