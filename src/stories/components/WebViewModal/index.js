@@ -58,7 +58,6 @@ class WebViewModal extends React.Component<Props, State> {
                         onMessage={this.onMessage}
                         javaScriptEnabled
                         onError={(e) => console.warn(e)}
-
                     />
                 </View>
                 <Button title={"CLOSE"} onPress={() => WebViewModal.toggleShow()}/>
